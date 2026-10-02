@@ -6,12 +6,12 @@ const LANG_KEY = storageKey('lang');
 
 const STR = {
   en: {
-    appName: 'Cattle Farm Manager',
+    appName: 'Dairy Farm Manager',
     // Nav sections
     secMain: 'Main', secHerd: 'Herd', secFinance: 'Finance', secAdmin: 'Administration',
     // Routes
     dashboard: 'Dashboard', animals: 'Animals', milk: 'Milk Production',
-    health: 'Health Records', breeding: 'Breeding & Pregnancy', weights: 'Weight Records',
+    health: 'Health Records', breeding: 'AI & Pregnancy', weights: 'Weight Records',
     milkSales: 'Milk Sales', animalTxns: 'Animal Transactions', expenses: 'Farm Expenses',
     buyers: 'Buyers', sellers: 'Sellers', accounts: 'Accounts',
     vouchers: 'Cash Book', reports: 'Reports', backup: 'Backup & Restore', settings: 'Settings',
@@ -87,9 +87,16 @@ const STR = {
     // Dashboard
     totalAnimals: 'Total Animals', activeCows: 'Active Cows / Buffaloes',
     totalBulls: 'Bulls', totalCalves: 'Calves',
-    todayProduction: "Today's Production", buyerBalance: 'Buyer Balance',
-    sellerBalance: 'Seller Balance', recentActivity: 'Recent Activity',
-    quickActions: 'Quick Actions', recordMilk: 'Record Milk',
+    activeHerd: 'Active Herd', milkingCows: 'Milking Animals',
+    todayProduction: "Today's Production", morningMilk: 'Morning', eveningMilk: 'Evening',
+    monthlyMilk: 'This Month', monthlyRevenue: 'Month Revenue',
+    buyerBalance: 'Buyer Balance', sellerBalance: 'Seller Balance',
+    recentActivity: 'Recent Activity', quickActions: 'Quick Actions', recordMilk: 'Record Milk',
+    greetMorning: 'Good Morning', greetAfternoon: 'Good Afternoon', greetEvening: 'Good Evening',
+    // Dairy sale types
+    saleType: 'Sale Type', company: 'Company', local: 'Local / Retail',
+    companySales: 'Company Sales', localSales: 'Local Sales',
+    addBuyer: 'Add Buyer',
     // Login
     signIn: 'Sign In', username: 'Username', password: 'Password',
     signingIn: 'Signing in…', internetRequired: 'Internet is required to sign in. After sign-in, the app works offline.',
@@ -110,12 +117,12 @@ const STR = {
   },
 
   ur: {
-    appName: 'مویشی فارم منیجر',
+    appName: 'ڈیری فارم منیجر',
     // Nav sections
     secMain: 'مرکزی', secHerd: 'ریوڑ', secFinance: 'مالیات', secAdmin: 'انتظامیہ',
     // Routes
     dashboard: 'ڈیش بورڈ', animals: 'جانور', milk: 'دودھ کی پیداوار',
-    health: 'صحت کے ریکارڈ', breeding: 'افزائش نسل', weights: 'وزن کے ریکارڈ',
+    health: 'صحت کے ریکارڈ', breeding: 'مصنوعی بار آوری', weights: 'وزن کے ریکارڈ',
     milkSales: 'دودھ کی فروخت', animalTxns: 'جانوروں کا لین دین', expenses: 'فارم اخراجات',
     buyers: 'خریدار', sellers: 'فروخت کنندہ', accounts: 'حسابات',
     vouchers: 'کیش بک', reports: 'رپورٹس', backup: 'بیک اپ', settings: 'ترتیبات',
@@ -189,9 +196,15 @@ const STR = {
     // Dashboard
     totalAnimals: 'کل جانور', activeCows: 'فعال گائے / بھینسیں',
     totalBulls: 'سانڈ', totalCalves: 'بچھڑے',
-    todayProduction: 'آج کی پیداوار', buyerBalance: 'خریداروں کا بقایا',
-    sellerBalance: 'فروخت کنندگان کا بقایا', recentActivity: 'حالیہ سرگرمی',
-    quickActions: 'فوری اعمال', recordMilk: 'دودھ ریکارڈ کریں',
+    activeHerd: 'فعال ریوڑ', milkingCows: 'دودھ دینے والے',
+    todayProduction: 'آج کی پیداوار', morningMilk: 'صبح', eveningMilk: 'شام',
+    monthlyMilk: 'اس ماہ', monthlyRevenue: 'ماہانہ آمدن',
+    buyerBalance: 'خریداروں کا بقایا', sellerBalance: 'فروخت کنندگان کا بقایا',
+    recentActivity: 'حالیہ سرگرمی', quickActions: 'فوری اعمال', recordMilk: 'دودھ ریکارڈ کریں',
+    greetMorning: 'صبح بخیر', greetAfternoon: 'دوپہر بخیر', greetEvening: 'شام بخیر',
+    saleType: 'فروخت کی قسم', company: 'کمپنی', local: 'مقامی / خوردہ',
+    companySales: 'کمپنی فروخت', localSales: 'مقامی فروخت',
+    addBuyer: 'خریدار شامل کریں',
     // Login
     signIn: 'لاگ ان', username: 'صارف نام', password: 'پاس ورڈ',
     signingIn: 'لاگ ان ہو رہا ہے…', internetRequired: 'لاگ ان کے لیے انٹرنیٹ ضروری ہے۔ لاگ ان کے بعد آف لائن کام ہوتا ہے۔',

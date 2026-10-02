@@ -57,6 +57,19 @@ async function newSaleModal() {
     size: 'lg',
     body: `<div class="row g-2">
       <div class="col-12">
+        <label class="form-label fw-semibold">${t('saleType') || 'Sale Type'} *</label>
+        <div class="d-flex gap-3 mb-1">
+          <div class="sale-type-btn flex-fill text-center py-2 px-3 rounded border selected" data-type="company" style="cursor:pointer">
+            <i class="bi bi-building me-1 text-primary"></i><strong>${t('company') || 'Company'}</strong>
+            <input type="radio" name="saleType" value="company" class="d-none" checked>
+          </div>
+          <div class="sale-type-btn flex-fill text-center py-2 px-3 rounded border" data-type="local" style="cursor:pointer">
+            <i class="bi bi-shop me-1 text-success"></i><strong>${t('local') || 'Local / Retail'}</strong>
+            <input type="radio" name="saleType" value="local" class="d-none">
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
         <label class="form-label">${t('buyer')} *</label>
         <div class="d-flex gap-2">
           <input name="buyerName" class="form-control flex-grow-1 buyer-name" readonly placeholder="${t('search')}…" required>
@@ -102,6 +115,13 @@ async function newSaleModal() {
           $m.find('[name=buyerId]').val(b.id);
         }
       });
+      $m.on('click', '.sale-type-btn', function () {
+        $m.find('.sale-type-btn').removeClass('selected border-primary border-success bg-primary-subtle bg-success-subtle');
+        $(this).addClass('selected').addClass($(this).data('type') === 'company' ? 'border-primary bg-primary-subtle' : 'border-success bg-success-subtle');
+        $(this).find('input[type=radio]').prop('checked', true);
+      });
+      // Activate first by default
+      $m.find('.sale-type-btn[data-type=company]').addClass('border-primary bg-primary-subtle');
     },
     onSubmit: async (v) => {
       if (!v.buyerId) throw new Error('Select a buyer.');
@@ -114,6 +134,7 @@ async function newSaleModal() {
       await Posting.saveMilkSale({
         date: v.date || today(), buyerId: v.buyerId, buyerName: buyer?.name || v.buyerName,
         quantity: qty, rate, total,
+        saleType: v.saleType || 'company',
         paid: isPaid ? total : 0,
         paymentAccountId: v.accountId || 'cash',
         note: clean(v.notes, 300),
@@ -124,35 +145,60 @@ async function newSaleModal() {
   });
 }
 
+function saleTypeBadge(saleType) {
+  if (saleType === 'company') return `<span class="badge sale-type-badge-company ms-1">Company</span>`;
+  if (saleType === 'local')   return `<span class="badge sale-type-badge-local ms-1">Local</span>`;
+  return '';
+}
+
 export default {
   async render(el) {
     const $el = $(el);
     const [from, to] = rangeFor('month');
+    let activeFilter = 'all';
 
     $el.html(UI.pageHeader(t('milkSales'),
       `<button class="btn btn-success btn-sm btn-add"><i class="bi bi-plus-lg"></i> ${t('milkSale')}</button>`) +
       dateFilter(from, to) +
-      `<div class="small text-body-secondary mb-2 summary"></div>
-       <div class="list-card sale-list"></div>`);
+      `<div class="chips mb-2">
+        <span class="chip active" data-filter="all">All</span>
+        <span class="chip" data-filter="company"><i class="bi bi-building me-1"></i>${t('company') || 'Company'}</span>
+        <span class="chip" data-filter="local"><i class="bi bi-shop me-1"></i>${t('local') || 'Local'}</span>
+      </div>
+      <div class="small text-body-secondary mb-2 summary"></div>
+      <div class="list-card sale-list"></div>`);
 
     const draw = async (f = from, t2 = to) => {
-      const all = (await idb.read(['milkSales'], (tx) =>
+      let all = (await idb.read(['milkSales'], (tx) =>
         tx.getAllByIndex('milkSales', 'date', IDBKeyRange.bound(f, t2 + '￿'))))
         .filter((d) => d.status !== 'void')
         .sort((a, b) => b.date.localeCompare(a.date));
+      if (activeFilter !== 'all') {
+        all = activeFilter === 'company'
+          ? all.filter((d) => d.saleType === 'company')
+          : all.filter((d) => d.saleType !== 'company');
+      }
       const totalQty = all.reduce((s, d) => s + (d.quantity || 0), 0);
       const totalAmt = all.reduce((s, d) => s + (d.total || 0), 0);
-      $el.find('.summary').text(`${all.length} sales · ${fmtNum(totalQty)} L · ${money(totalAmt)}`);
+      $el.find('.summary').text(`${all.length} sale${all.length !== 1 ? 's' : ''} · ${fmtNum(totalQty)} L · ${money(totalAmt)}`);
       pager($el.find('.sale-list'), all, (d) => `<div class="list-row">
+        <div class="thumb"><i class="bi bi-${d.saleType === 'company' ? 'building' : 'shop'}"></i></div>
         <div class="main">
-          <div class="title">${esc(d.buyerName)}</div>
+          <div class="title">${esc(d.buyerName)}${saleTypeBadge(d.saleType)}</div>
           <div class="sub">${fmtDate(d.date)} · ${fmtNum(d.quantity)} L @ ${money(d.rate)}/L</div>
-          ${d.balance > 0 ? `<div class="sub text-warning small">Credit</div>` : ''}
+          ${d.balance > 0 ? `<div class="sub text-warning small">Outstanding balance</div>` : ''}
         </div>
-        <div class="end fw-semibold">${money(d.total)}</div>
+        <div class="end fw-semibold money">${money(d.total)}</div>
       </div>`, 60, UI.emptyState(t('noRecords'), 'bag-check',
         `<button class="btn btn-success btn-sm mt-3 btn-add">${t('milkSale')}</button>`));
     };
+
+    $el.on('click', '.chip[data-filter]', async function () {
+      $el.find('.chip').removeClass('active');
+      $(this).addClass('active');
+      activeFilter = $(this).data('filter');
+      await draw();
+    });
 
     bindDateFilter($el, draw);
     await draw();

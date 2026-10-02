@@ -296,3 +296,144 @@ button.list-row { width: 100%; background: none; border-left: 0; border-right: 0
 
 /* Text pink for female icon */
 .text-pink { color: #e91e63; }
+
+/* ================================================
+   DAIRY FARM MANAGER — Dairy-specific UI styles
+   ================================================ */
+
+/* Login background override — deep farm gradient */
+.login-bg {
+  background: linear-gradient(155deg, #0d3b1f 0%, #1b5e20 40%, #2e7d32 72%, #1a5276 100%) !important;
+}
+
+/* Greeting banner */
+.dash-greeting {
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 55%, #1565c0 100%);
+  color: white;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 18px rgba(46,125,50,.28);
+}
+.dash-greeting-name { font-size: 1.05rem; font-weight: 700; }
+.dash-greeting-sub  { font-size: .78rem; opacity: .85; margin-top: 2px; }
+.dash-greeting-icon { font-size: 2rem; opacity: .6; }
+
+/* Enhanced stat tiles with colored top bar */
+.stat-tile.st-green { border-top: 3px solid #2e7d32; }
+.stat-tile.st-green .st-icon i { color: #2e7d32; }
+.stat-tile.st-blue  { border-top: 3px solid #1565c0; }
+.stat-tile.st-blue  .st-icon i { color: #1565c0; }
+.stat-tile.st-amber { border-top: 3px solid #f9a825; }
+.stat-tile.st-amber .st-icon i { color: #f9a825; }
+.stat-tile.st-pink  { border-top: 3px solid #e91e63; }
+.stat-tile.st-pink  .st-icon i { color: #e91e63; }
+.stat-tile .st-icon { font-size: 1.3rem; margin-bottom: 6px; }
+
+/* Milk production card */
+.milk-prod-card {
+  background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+[data-bs-theme="dark"] .milk-prod-card {
+  background: linear-gradient(135deg, #0d1b2a 0%, #0d200d 100%);
+  border-color: rgba(255,255,255,0.08);
+}
+.milk-prod-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: .9rem;
+  color: #1565c0;
+}
+[data-bs-theme="dark"] .milk-prod-header { color: #90caf9; }
+.milk-sessions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.milk-session-box {
+  flex: 1;
+  background: rgba(255,255,255,.88);
+  border-radius: 12px;
+  padding: 10px 10px 8px;
+  text-align: center;
+}
+[data-bs-theme="dark"] .milk-session-box { background: rgba(255,255,255,0.07); }
+.milk-session-box .sess-icon { font-size: 1.05rem; margin-bottom: 2px; }
+.milk-session-box .sess-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; color: var(--bs-secondary-color); margin-bottom: 2px; }
+.milk-session-box .sess-val   { font-size: 1.35rem; font-weight: 800; color: #1565c0; line-height: 1; }
+[data-bs-theme="dark"] .milk-session-box .sess-val { color: #90caf9; }
+.milk-session-box .sess-unit  { font-size: .7rem; color: var(--bs-secondary-color); }
+.milk-session-plus { font-size: 1.1rem; color: var(--bs-secondary-color); flex-shrink: 0; }
+.milk-total-box {
+  background: var(--farm-green);
+  color: white;
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.milk-total-box .total-label { font-size: .8rem; font-weight: 600; opacity: .9; }
+.milk-total-box .total-sub   { font-size: .7rem; opacity: .75; margin-top: 1px; }
+.milk-total-box .total-val   { font-size: 2rem; font-weight: 900; line-height: 1; }
+.milk-total-box .total-unit  { font-size: .9rem; opacity: .85; }
+
+/* Sales breakdown / monthly stats card */
+.sales-breakdown-card {
+  background: var(--bs-body-bg);
+  border: 1px solid var(--bs-border-color-translucent);
+  border-radius: 14px;
+  overflow: hidden;
+  height: 100%;
+}
+.sb-header {
+  padding: 8px 14px;
+  background: var(--bs-secondary-bg);
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--bs-secondary-color);
+  border-bottom: 1px solid var(--bs-border-color-translucent);
+}
+.sb-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--bs-border-color-translucent);
+}
+.sb-row:last-child { border-bottom: 0; }
+.sb-type-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; flex-shrink: 0;
+}
+.sb-type-icon.company { background: #e3f2fd; color: #1565c0; }
+.sb-type-icon.local   { background: #e8f5e9; color: #2e7d32; }
+[data-bs-theme="dark"] .sb-type-icon.company { background: rgba(21,101,192,.18); color: #90caf9; }
+[data-bs-theme="dark"] .sb-type-icon.local   { background: rgba(46,125,50,.18);  color: #81c784; }
+.sb-info { flex: 1; min-width: 0; }
+.sb-info .sb-name { font-weight: 600; font-size: .88rem; }
+.sb-info .sb-qty  { font-size: .75rem; color: var(--bs-secondary-color); }
+.sb-amount { font-weight: 700; color: #2e7d32; font-size: .9rem; white-space: nowrap; }
+[data-bs-theme="dark"] .sb-amount { color: #81c784; }
+
+/* Milk sale type badges */
+.sale-type-badge-company { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; font-weight: 600; }
+.sale-type-badge-local   { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; font-weight: 600; }
+.badge-sale-company { background: #e3f2fd !important; color: #1565c0 !important; }
+.badge-sale-local   { background: #e8f5e9 !important; color: #2e7d32 !important; }
+
+/* Sale type button toggle in form */
+.sale-type-btn { transition: background .15s, border-color .15s; }

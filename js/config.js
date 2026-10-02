@@ -1,6 +1,6 @@
 export const CONFIG = {
-  APP_NAME: 'Cattle Farm Manager',
-  APP_NAME_UR: 'مویشی فارم منیجر',
+  APP_NAME: 'Dairy Farm Manager',
+  APP_NAME_UR: 'ڈیری فارم منیجر',
   APP_ID: 'cattlefarm',
   APP_VERSION: '1.0.0',
   SCHEMA_VERSION: 1,
