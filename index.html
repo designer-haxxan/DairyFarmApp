@@ -51,21 +51,21 @@
               <!-- Morning sky -->
               <rect width="400" height="200" fill="url(#lsk)"/>
               <!-- Rising sun (left) -->
-              <circle cx="52" cy="58" r="32" fill="#ffecb3" opacity="0.65" filter="url(#sglow)"/>
+              <circle class="df-sun-halo" cx="52" cy="58" r="32" fill="#ffecb3" opacity="0.65" filter="url(#sglow)"/>
               <circle cx="52" cy="58" r="20" fill="#ffca28"/>
-              <g stroke="#ffca28" stroke-width="2" opacity=".65" stroke-linecap="round">
+              <g class="df-sun-rays" stroke="#ffca28" stroke-width="2" opacity=".65" stroke-linecap="round">
                 <line x1="52" y1="32" x2="52" y2="24"/><line x1="52" y1="84" x2="52" y2="92"/>
                 <line x1="26" y1="58" x2="18" y2="58"/><line x1="78" y1="58" x2="86" y2="58"/>
                 <line x1="33" y1="39" x2="27" y2="33"/><line x1="71" y1="77" x2="77" y2="83"/>
                 <line x1="71" y1="39" x2="77" y2="33"/><line x1="33" y1="77" x2="27" y2="83"/>
               </g>
               <!-- Clouds -->
-              <g opacity=".9">
+              <g class="df-cloud-a" opacity=".9">
                 <ellipse cx="210" cy="34" rx="48" ry="19" fill="white"/>
                 <ellipse cx="240" cy="27" rx="36" ry="16" fill="white"/>
                 <ellipse cx="182" cy="32" rx="28" ry="13" fill="white"/>
               </g>
-              <g opacity=".7">
+              <g class="df-cloud-b" opacity=".7">
                 <ellipse cx="345" cy="50" rx="34" ry="14" fill="white"/>
                 <ellipse cx="368" cy="44" rx="24" ry="11" fill="white"/>
               </g>
@@ -101,6 +101,7 @@
                 <line x1="278" y1="143" x2="278" y2="162"/>
               </g>
               <!-- Holstein dairy cow (black &amp; white patches) -->
+              <g class="df-cow-group">
               <!-- Body -->
               <ellipse cx="192" cy="131" rx="45" ry="23" fill="white" stroke="#e0e0e0" stroke-width=".5"/>
               <!-- Black body patches -->
@@ -138,6 +139,7 @@
               <!-- Tail -->
               <path d="M147 129 Q131 114 135 102" fill="none" stroke="white" stroke-width="4" stroke-linecap="round"/>
               <ellipse cx="135" cy="100" rx="5" ry="7" fill="#212121" opacity=".75"/>
+              </g>
               <!-- Milk churns (foreground) -->
               <g transform="translate(60,140)">
                 <ellipse cx="14" cy="2" rx="14" ry="4" fill="#b0bec5"/>

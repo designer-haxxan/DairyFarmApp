@@ -24,6 +24,20 @@ function greetIcon() {
   return 'moon-stars';
 }
 
+function animateCount(el) {
+  const target = parseFloat(el.dataset.target) || 0;
+  if (target === 0) { el.textContent = '0'; return; }
+  const dur = 750, start = Date.now();
+  const tick = () => {
+    const p = Math.min((Date.now() - start) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Number.isInteger(target) ? Math.round(ease * target) : (ease * target).toFixed(1);
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = Number.isInteger(target) ? target : target.toFixed(1);
+  };
+  requestAnimationFrame(tick);
+}
+
 async function loadStats() {
   const animals = Catalog.allAnimals();
   const active = animals.filter((a) => a.status === 'active');
@@ -148,24 +162,25 @@ export default {
       $('#dash-stats').html(`
         <div class="stat-tile st-green">
           <div class="st-icon"><i class="bi bi-collection-fill"></i></div>
-          <div class="st-val">${stats.totalHerd}</div>
+          <div class="st-val df-countup" data-target="${stats.totalHerd}">0</div>
           <div class="st-lbl">${esc(t('activeHerd') || 'Active Herd')}</div>
         </div>
         <div class="stat-tile st-blue">
           <div class="st-icon"><i class="bi bi-droplet-fill"></i></div>
-          <div class="st-val">${stats.milkingAnimals}</div>
+          <div class="st-val df-countup" data-target="${stats.milkingAnimals}">0</div>
           <div class="st-lbl">${esc(t('milkingCows') || 'Milking')}</div>
         </div>
         <div class="stat-tile st-amber">
           <div class="st-icon"><i class="bi bi-stars"></i></div>
-          <div class="st-val">${stats.calves}</div>
+          <div class="st-val df-countup" data-target="${stats.calves}">0</div>
           <div class="st-lbl">Calves</div>
         </div>
         <div class="stat-tile st-pink">
           <div class="st-icon"><i class="bi bi-heart-pulse-fill"></i></div>
-          <div class="st-val">${stats.pregnantCount}</div>
+          <div class="st-val df-countup" data-target="${stats.pregnantCount}">0</div>
           <div class="st-lbl">${esc(t('pregnantAnimals') || 'Pregnant')}</div>
         </div>`);
+      $('#dash-stats .df-countup').each((_, el) => animateCount(el));
 
       // Today's milk production
       if (stats.todayLiters === 0) {

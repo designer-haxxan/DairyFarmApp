@@ -297,143 +297,509 @@ button.list-row { width: 100%; background: none; border-left: 0; border-right: 0
 /* Text pink for female icon */
 .text-pink { color: #e91e63; }
 
-/* ================================================
-   DAIRY FARM MANAGER — Dairy-specific UI styles
-   ================================================ */
+/* ================================================================
+   DAIRY FARM MANAGER — Premium Visuals & Animations v2
+   ================================================================ */
 
-/* Login background override — deep farm gradient */
+/* ---- Keyframes ---- */
+@keyframes df-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-7px); }
+}
+@keyframes df-cloud-a {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(18px); }
+}
+@keyframes df-cloud-b {
+  0%,100% { transform: translateX(0); }
+  50%      { transform: translateX(-13px); }
+}
+@keyframes df-sun-pulse {
+  0%,100% { opacity:.65; transform:scale(1); }
+  50%      { opacity:.95; transform:scale(1.18); }
+}
+@keyframes df-sun-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes df-cow-bob {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-3px); }
+}
+@keyframes df-slide-up {
+  from { opacity:0; transform:translateY(24px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes df-scale-in {
+  from { opacity:0; transform:scale(.9); }
+  to   { opacity:1; transform:scale(1); }
+}
+@keyframes df-fade-in {
+  from { opacity:0; }
+  to   { opacity:1; }
+}
+@keyframes df-pulse-ring {
+  0%   { box-shadow:0 0 0 0 rgba(21,101,192,.6); }
+  70%  { box-shadow:0 0 0 12px rgba(21,101,192,0); }
+  100% { box-shadow:0 0 0 0 rgba(21,101,192,0); }
+}
+@keyframes df-gradient-shift {
+  0%   { background-position:0% 50%; }
+  50%  { background-position:100% 50%; }
+  100% { background-position:0% 50%; }
+}
+@keyframes df-milk-wave {
+  0%,100% { border-radius:14px 14px 14px 14px; }
+  50%      { border-radius:22px 10px 18px 22px; }
+}
+@keyframes df-bounce-in {
+  0%   { transform:scale(.3); opacity:0; }
+  55%  { transform:scale(1.12); }
+  75%  { transform:scale(.95); }
+  100% { transform:scale(1); opacity:1; }
+}
+@keyframes df-count-in {
+  from { opacity:0; transform:translateY(8px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes df-login-entry {
+  from { opacity:0; transform:translateY(40px) scale(.95); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes df-nav-dot {
+  from { transform:translateX(-50%) scaleX(0); }
+  to   { transform:translateX(-50%) scaleX(1); }
+}
+@keyframes df-shimmer {
+  0%   { background-position:-200% center; }
+  100% { background-position:200% center; }
+}
+@keyframes autofill-pulse-anim {
+  0%,100% { box-shadow:0 0 0 0 rgba(46,125,50,.55); }
+  50%      { box-shadow:0 0 0 10px rgba(46,125,50,0); }
+}
+
+/* ================================================================
+   LOGIN PAGE
+   ================================================================ */
+
+/* Animated gradient background */
 .login-bg {
-  background: linear-gradient(155deg, #0d3b1f 0%, #1b5e20 40%, #2e7d32 72%, #1a5276 100%) !important;
+  min-height: 100vh;
+  background: linear-gradient(-45deg,#0d3b1f,#1b5e20,#0a3d62,#155724,#1b5e20) !important;
+  background-size: 400% 400% !important;
+  animation: df-gradient-shift 14s ease infinite !important;
+  display: flex; align-items: center; justify-content: center; padding: 20px 16px;
 }
 
-/* Greeting banner */
-.dash-greeting {
-  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 55%, #1565c0 100%);
+/* Card entry animation */
+.login-card {
+  border-radius: 22px !important;
+  overflow: hidden;
+  animation: df-login-entry .7s cubic-bezier(.34,1.56,.64,1) both;
+  box-shadow: 0 28px 70px rgba(0,0,0,.38) !important;
+}
+
+/* Farm scene */
+.login-scene-wrap { position: relative; background: #87ceeb; }
+.login-scene { display: block; width: 100%; height: auto; }
+
+/* SVG scene animations */
+.df-cloud-a  { animation: df-cloud-a 9s ease-in-out infinite; }
+.df-cloud-b  { animation: df-cloud-b 13s ease-in-out infinite; }
+.df-sun-halo { animation: df-sun-pulse 5s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+.df-sun-rays { animation: df-sun-spin 24s linear infinite; transform-box:fill-box; transform-origin:52px 58px; }
+.df-cow-group{ animation: df-cow-bob 4s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+
+/* Brand bar */
+.login-brand-bar {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.68) 0%, transparent 100%);
+  display: flex; align-items: center; gap: 12px;
+  padding: 20px 20px 16px; color: white;
+}
+.login-logo-img {
+  border-radius: 10px; flex-shrink: 0;
+  box-shadow: 0 3px 12px rgba(0,0,0,.32);
+  animation: df-float 4s ease-in-out infinite;
+}
+.login-brand-name { font-size: 1.1rem; font-weight: 700; line-height: 1.2; text-shadow: 0 1px 5px rgba(0,0,0,.35); }
+.login-brand-sub  { font-size: .72rem; opacity: .85; margin-top: 1px; }
+
+/* Form area */
+.login-form-area { padding: 22px 24px 26px; background: var(--bs-body-bg); }
+.login-form-area .form-floating > .form-control { border-radius: 12px !important; transition: border-color .2s, box-shadow .2s; }
+.login-form-area .form-control:focus {
+  border-color: #2e7d32 !important;
+  box-shadow: 0 0 0 .22rem rgba(46,125,50,.22) !important;
+}
+
+/* Login button */
+#login-btn {
+  background: linear-gradient(135deg,#2e7d32 0%,#388e3c 50%,#43a047 100%) !important;
+  border: none !important; border-radius: 14px !important;
+  font-size: 1.05rem !important; padding: 12px !important;
+  position: relative; overflow: hidden;
+  transition: transform .15s, box-shadow .15s !important;
+  box-shadow: 0 4px 18px rgba(46,125,50,.42) !important;
+}
+#login-btn:hover  { transform: translateY(-2px) !important; box-shadow: 0 8px 30px rgba(46,125,50,.52) !important; }
+#login-btn:active { transform: translateY(0) !important; }
+#login-btn::after {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 60%);
+  pointer-events:none;
+}
+
+/* Autofill */
+.autofill-pulse { animation: autofill-pulse-anim 1.2s ease-in-out 4; }
+.autofill-hint {
+  font-size: 1rem; line-height: 1.8;
+  border-radius: 12px !important; border: none !important;
+  background: linear-gradient(135deg,#e8f5e9,#c8e6c9) !important;
+  color: #1b5e20 !important;
+}
+
+.login-footer-note { color: rgba(255,255,255,.65); }
+#toggle-pw { z-index: 5; }
+
+/* ================================================================
+   SPLASH
+   ================================================================ */
+#splash {
+  background: linear-gradient(160deg,#0d3b1f 0%,#1b5e20 50%,#2e7d32 100%);
   color: white;
-  border-radius: 16px;
-  padding: 16px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 18px rgba(46,125,50,.28);
 }
-.dash-greeting-name { font-size: 1.05rem; font-weight: 700; }
-.dash-greeting-sub  { font-size: .78rem; opacity: .85; margin-top: 2px; }
-.dash-greeting-icon { font-size: 2rem; opacity: .6; }
+#splash img {
+  animation: df-float 3s ease-in-out infinite;
+  border-radius: 20px;
+  box-shadow: 0 8px 36px rgba(0,0,0,.3);
+}
 
-/* Enhanced stat tiles with colored top bar */
-.stat-tile.st-green { border-top: 3px solid #2e7d32; }
-.stat-tile.st-green .st-icon i { color: #2e7d32; }
-.stat-tile.st-blue  { border-top: 3px solid #1565c0; }
-.stat-tile.st-blue  .st-icon i { color: #1565c0; }
-.stat-tile.st-amber { border-top: 3px solid #f9a825; }
-.stat-tile.st-amber .st-icon i { color: #f9a825; }
-.stat-tile.st-pink  { border-top: 3px solid #e91e63; }
-.stat-tile.st-pink  .st-icon i { color: #e91e63; }
-.stat-tile .st-icon { font-size: 1.3rem; margin-bottom: 6px; }
+/* ================================================================
+   DASHBOARD — Greeting
+   ================================================================ */
+.dash-greeting {
+  background: linear-gradient(-45deg,#1b5e20,#2e7d32,#0a3d62,#1565c0,#2e7d32);
+  background-size: 300% 300%;
+  animation: df-gradient-shift 12s ease infinite;
+  color: white;
+  border-radius: 20px;
+  padding: 18px 22px;
+  display: flex; justify-content: space-between; align-items: center;
+  box-shadow: 0 6px 30px rgba(46,125,50,.32);
+  margin-bottom: 16px;
+  position: relative; overflow: hidden;
+}
+.dash-greeting::before {
+  content:''; position:absolute; top:-30px; right:-20px;
+  width:150px; height:150px; border-radius:50%;
+  background:rgba(255,255,255,.07); pointer-events:none;
+}
+.dash-greeting::after {
+  content:''; position:absolute; bottom:-40px; left:-10px;
+  width:110px; height:110px; border-radius:50%;
+  background:rgba(255,255,255,.04); pointer-events:none;
+}
+.dash-greeting-name { font-size: 1.12rem; font-weight: 700; text-shadow: 0 1px 4px rgba(0,0,0,.2); }
+.dash-greeting-sub  { font-size: .78rem; opacity: .88; margin-top: 3px; }
+.dash-greeting-icon {
+  font-size: 2.6rem; opacity: 1;
+  animation: df-float 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.25));
+}
 
-/* Milk production card */
+/* ================================================================
+   DASHBOARD — Stat tiles
+   ================================================================ */
+.stat-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:16px; }
+@media (min-width:576px) { .stat-grid { grid-template-columns:repeat(4,1fr); } }
+
+.stat-tile {
+  border-radius: 18px !important;
+  padding: 18px 12px !important;
+  text-align: center;
+  border: none !important;
+  position: relative; overflow: hidden;
+  transition: transform .22s, box-shadow .22s;
+  animation: df-scale-in .42s ease both;
+  cursor: default;
+}
+.stat-tile:hover { transform: translateY(-5px); }
+
+/* Decorative circle */
+.stat-tile::before {
+  content:''; position:absolute; bottom:-22px; right:-22px;
+  width:88px; height:88px; border-radius:50%;
+  background:rgba(255,255,255,.17); pointer-events:none;
+}
+
+/* Colored tiles */
+.stat-tile.st-green { background:linear-gradient(145deg,#e8f5e9 0%,#a5d6a7 100%); box-shadow:0 4px 18px rgba(46,125,50,.2); }
+.stat-tile.st-blue  { background:linear-gradient(145deg,#e3f2fd 0%,#90caf9 100%); box-shadow:0 4px 18px rgba(21,101,192,.2); }
+.stat-tile.st-amber { background:linear-gradient(145deg,#fff8e1 0%,#ffe082 100%); box-shadow:0 4px 18px rgba(249,168,37,.28); }
+.stat-tile.st-pink  { background:linear-gradient(145deg,#fce4ec 0%,#f48fb1 100%); box-shadow:0 4px 18px rgba(233,30,99,.22); }
+
+[data-bs-theme="dark"] .stat-tile.st-green { background:linear-gradient(145deg,rgba(27,94,32,.65) 0%,rgba(46,125,50,.42) 100%); }
+[data-bs-theme="dark"] .stat-tile.st-blue  { background:linear-gradient(145deg,rgba(13,71,161,.65) 0%,rgba(21,101,192,.42) 100%); }
+[data-bs-theme="dark"] .stat-tile.st-amber { background:linear-gradient(145deg,rgba(230,81,0,.65) 0%,rgba(245,124,0,.42) 100%); }
+[data-bs-theme="dark"] .stat-tile.st-pink  { background:linear-gradient(145deg,rgba(136,14,79,.65) 0%,rgba(233,30,99,.42) 100%); }
+
+/* Icon circle */
+.stat-tile .st-icon {
+  width: 54px; height: 54px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px;
+  font-size: 1.5rem;
+  transition: transform .22s;
+}
+.stat-tile:hover .st-icon { transform: scale(1.14); }
+.stat-tile.st-green .st-icon { background:rgba(46,125,50,.2); }
+.stat-tile.st-green .st-icon i { color:#1b5e20; }
+.stat-tile.st-blue  .st-icon { background:rgba(21,101,192,.2); }
+.stat-tile.st-blue  .st-icon i { color:#0d47a1; }
+.stat-tile.st-amber .st-icon { background:rgba(249,168,37,.3); }
+.stat-tile.st-amber .st-icon i { color:#e65100; }
+.stat-tile.st-pink  .st-icon { background:rgba(233,30,99,.18); }
+.stat-tile.st-pink  .st-icon i { color:#880e4f; }
+
+.stat-tile .st-val { font-size:1.9rem; font-weight:800; line-height:1; }
+.stat-tile .st-lbl { font-size:.68rem; text-transform:uppercase; letter-spacing:.06em; margin-top:5px; opacity:.72; }
+
+/* Staggered entrance */
+.stat-tile:nth-child(1) { animation-delay:.04s; }
+.stat-tile:nth-child(2) { animation-delay:.10s; }
+.stat-tile:nth-child(3) { animation-delay:.16s; }
+.stat-tile:nth-child(4) { animation-delay:.22s; }
+
+/* Count-up animation */
+.df-countup { animation: df-count-in .55s ease both; }
+
+/* ================================================================
+   DASHBOARD — Milk production card
+   ================================================================ */
 .milk-prod-card {
-  background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
-  border-radius: 16px;
-  padding: 16px;
-  border: 1px solid rgba(0,0,0,0.06);
+  background: linear-gradient(135deg,#e3f2fd 0%,#e8f5e9 100%);
+  border-radius: 22px !important;
+  padding: 18px;
+  border: none !important;
+  box-shadow: 0 4px 24px rgba(21,101,192,.13);
+  animation: df-slide-up .5s .2s ease both;
+  position: relative; overflow: hidden;
 }
 [data-bs-theme="dark"] .milk-prod-card {
-  background: linear-gradient(135deg, #0d1b2a 0%, #0d200d 100%);
-  border-color: rgba(255,255,255,0.08);
+  background: linear-gradient(135deg,rgba(13,27,42,.95) 0%,rgba(10,25,10,.95) 100%);
+  box-shadow: 0 4px 24px rgba(0,0,0,.38);
 }
-.milk-prod-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-  font-weight: 600;
-  font-size: .9rem;
-  color: #1565c0;
+.milk-prod-card::before {
+  content:''; position:absolute; top:-45px; right:-30px;
+  width:200px; height:200px; border-radius:50%;
+  background:rgba(255,255,255,.15); pointer-events:none;
 }
-[data-bs-theme="dark"] .milk-prod-header { color: #90caf9; }
-.milk-sessions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-.milk-session-box {
-  flex: 1;
-  background: rgba(255,255,255,.88);
-  border-radius: 12px;
-  padding: 10px 10px 8px;
-  text-align: center;
-}
-[data-bs-theme="dark"] .milk-session-box { background: rgba(255,255,255,0.07); }
-.milk-session-box .sess-icon { font-size: 1.05rem; margin-bottom: 2px; }
-.milk-session-box .sess-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; color: var(--bs-secondary-color); margin-bottom: 2px; }
-.milk-session-box .sess-val   { font-size: 1.35rem; font-weight: 800; color: #1565c0; line-height: 1; }
-[data-bs-theme="dark"] .milk-session-box .sess-val { color: #90caf9; }
-.milk-session-box .sess-unit  { font-size: .7rem; color: var(--bs-secondary-color); }
-.milk-session-plus { font-size: 1.1rem; color: var(--bs-secondary-color); flex-shrink: 0; }
-.milk-total-box {
-  background: var(--farm-green);
-  color: white;
-  border-radius: 12px;
-  padding: 12px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.milk-total-box .total-label { font-size: .8rem; font-weight: 600; opacity: .9; }
-.milk-total-box .total-sub   { font-size: .7rem; opacity: .75; margin-top: 1px; }
-.milk-total-box .total-val   { font-size: 2rem; font-weight: 900; line-height: 1; }
-.milk-total-box .total-unit  { font-size: .9rem; opacity: .85; }
 
-/* Sales breakdown / monthly stats card */
+.milk-prod-header {
+  display:flex; align-items:center; gap:8px; margin-bottom:14px;
+  font-weight:700; font-size:.9rem; color:#1565c0;
+}
+[data-bs-theme="dark"] .milk-prod-header { color:#90caf9; }
+
+.milk-sessions { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.milk-session-box {
+  flex:1; background:rgba(255,255,255,.9); border-radius:14px;
+  padding:12px 10px 10px; text-align:center;
+  transition:transform .2s, box-shadow .2s;
+  border: 1px solid rgba(255,255,255,.6);
+}
+[data-bs-theme="dark"] .milk-session-box { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.06); }
+.milk-session-box:hover { transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,.1); }
+.milk-session-box .sess-icon  { font-size:1.1rem; margin-bottom:4px; }
+.milk-session-box .sess-label { font-size:.67rem; text-transform:uppercase; letter-spacing:.05em; color:var(--bs-secondary-color); margin-bottom:3px; }
+.milk-session-box .sess-val   { font-size:1.55rem; font-weight:800; color:#1565c0; line-height:1; }
+[data-bs-theme="dark"] .milk-session-box .sess-val { color:#90caf9; }
+.milk-session-box .sess-unit  { font-size:.72rem; color:var(--bs-secondary-color); }
+.milk-session-plus { font-size:1.1rem; color:var(--bs-secondary-color); flex-shrink:0; }
+
+.milk-total-box {
+  background: linear-gradient(135deg,#2e7d32 0%,#1b5e20 100%);
+  color:white; border-radius:14px; padding:14px 18px;
+  display:flex; align-items:center; justify-content:space-between;
+  box-shadow: 0 4px 20px rgba(46,125,50,.4);
+  animation: df-milk-wave 5s ease-in-out infinite;
+  position:relative; overflow:hidden;
+}
+.milk-total-box::after {
+  content:''; position:absolute; bottom:-18px; right:-18px;
+  width:90px; height:90px; border-radius:50%;
+  background:rgba(255,255,255,.09); pointer-events:none;
+}
+.milk-total-box .total-label { font-size:.83rem; font-weight:600; opacity:.92; }
+.milk-total-box .total-sub   { font-size:.72rem; opacity:.72; margin-top:2px; }
+.milk-total-box .total-val   { font-size:2.3rem; font-weight:900; line-height:1; }
+.milk-total-box .total-unit  { font-size:.9rem; opacity:.85; }
+
+/* ================================================================
+   DASHBOARD — Sales breakdown cards
+   ================================================================ */
 .sales-breakdown-card {
   background: var(--bs-body-bg);
-  border: 1px solid var(--bs-border-color-translucent);
-  border-radius: 14px;
-  overflow: hidden;
-  height: 100%;
+  border-radius: 18px !important; border:none !important;
+  box-shadow: 0 3px 18px rgba(0,0,0,.07);
+  overflow:hidden; height:100%;
+  transition: transform .22s, box-shadow .22s;
+  animation: df-slide-up .5s .3s ease both;
 }
+.sales-breakdown-card:hover { transform:translateY(-4px); box-shadow:0 10px 32px rgba(0,0,0,.13) !important; }
+[data-bs-theme="dark"] .sales-breakdown-card { box-shadow:0 3px 18px rgba(0,0,0,.3); border:1px solid rgba(255,255,255,.06) !important; }
+
 .sb-header {
-  padding: 8px 14px;
-  background: var(--bs-secondary-bg);
-  font-size: .72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--bs-secondary-color);
-  border-bottom: 1px solid var(--bs-border-color-translucent);
+  padding:10px 16px; background:var(--bs-secondary-bg);
+  font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--bs-secondary-color); border-bottom:1px solid var(--bs-border-color-translucent);
 }
 .sb-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--bs-border-color-translucent);
+  display:flex; align-items:center; gap:12px; padding:14px 16px;
+  border-bottom:1px solid var(--bs-border-color-translucent);
+  transition:background .15s;
 }
-.sb-row:last-child { border-bottom: 0; }
+.sb-row:last-child { border-bottom:0; }
+.sb-row:hover { background:var(--bs-secondary-bg); }
 .sb-type-icon {
-  width: 38px; height: 38px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1rem; flex-shrink: 0;
+  width:42px; height:42px; border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.1rem; flex-shrink:0;
+  transition:transform .2s;
 }
-.sb-type-icon.company { background: #e3f2fd; color: #1565c0; }
-.sb-type-icon.local   { background: #e8f5e9; color: #2e7d32; }
-[data-bs-theme="dark"] .sb-type-icon.company { background: rgba(21,101,192,.18); color: #90caf9; }
-[data-bs-theme="dark"] .sb-type-icon.local   { background: rgba(46,125,50,.18);  color: #81c784; }
-.sb-info { flex: 1; min-width: 0; }
-.sb-info .sb-name { font-weight: 600; font-size: .88rem; }
-.sb-info .sb-qty  { font-size: .75rem; color: var(--bs-secondary-color); }
-.sb-amount { font-weight: 700; color: #2e7d32; font-size: .9rem; white-space: nowrap; }
-[data-bs-theme="dark"] .sb-amount { color: #81c784; }
+.sb-row:hover .sb-type-icon { transform:scale(1.12); }
+.sb-type-icon.company { background:#e3f2fd; color:#1565c0; }
+.sb-type-icon.local   { background:#e8f5e9; color:#2e7d32; }
+[data-bs-theme="dark"] .sb-type-icon.company { background:rgba(21,101,192,.2); color:#90caf9; }
+[data-bs-theme="dark"] .sb-type-icon.local   { background:rgba(46,125,50,.2);  color:#81c784; }
+.sb-info { flex:1; min-width:0; }
+.sb-info .sb-name { font-weight:600; font-size:.9rem; }
+.sb-info .sb-qty  { font-size:.76rem; color:var(--bs-secondary-color); margin-top:1px; }
+.sb-amount { font-weight:700; color:#2e7d32; font-size:.92rem; white-space:nowrap; }
+[data-bs-theme="dark"] .sb-amount { color:#81c784; }
 
-/* Milk sale type badges */
-.sale-type-badge-company { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; font-weight: 600; }
-.sale-type-badge-local   { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; font-weight: 600; }
-.badge-sale-company { background: #e3f2fd !important; color: #1565c0 !important; }
-.badge-sale-local   { background: #e8f5e9 !important; color: #2e7d32 !important; }
+/* ================================================================
+   QUICK ACTIONS
+   ================================================================ */
+.quick-action {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; padding:16px 6px; border-radius:18px !important;
+  background:var(--bs-body-bg); text-decoration:none; color:var(--bs-body-color);
+  font-size:.8rem; text-align:center;
+  border:1px solid var(--bs-border-color-translucent) !important;
+  transition:transform .2s, box-shadow .2s;
+  position:relative; overflow:hidden;
+  animation:df-slide-up .45s ease both;
+}
+.quick-action::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(46,125,50,.06),transparent);
+  opacity:0; transition:opacity .2s;
+}
+.quick-action:hover { transform:translateY(-4px); box-shadow:0 8px 26px rgba(0,0,0,.1) !important; }
+.quick-action:hover::before { opacity:1; }
+.quick-action:active { transform:scale(.96); }
+.quick-action i { font-size:1.7rem !important; transition:transform .25s; }
+.quick-action:hover i { transform:scale(1.22) rotate(-5deg); }
 
-/* Sale type button toggle in form */
-.sale-type-btn { transition: background .15s, border-color .15s; }
+/* ================================================================
+   LIST CARDS & ROWS
+   ================================================================ */
+.list-card {
+  background:var(--bs-body-bg); border-radius:16px !important;
+  overflow:hidden; border:none !important;
+  box-shadow:0 2px 14px rgba(0,0,0,.06);
+}
+[data-bs-theme="dark"] .list-card { box-shadow:0 2px 14px rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.06) !important; }
+.list-row { transition:background .15s, transform .15s; }
+a.list-row:hover, button.list-row:hover { background:var(--bs-secondary-bg); transform:translateX(3px); }
+.thumb { border-radius:12px !important; transition:transform .2s; }
+.list-row:hover .thumb { transform:scale(1.1); }
+
+/* ================================================================
+   BOTTOM NAVIGATION
+   ================================================================ */
+#bottom-nav { box-shadow:0 -4px 22px rgba(0,0,0,.09); }
+[data-bs-theme="dark"] #bottom-nav { box-shadow:0 -4px 22px rgba(0,0,0,.28); }
+#bottom-nav a { transition:color .2s, transform .15s; position:relative; }
+#bottom-nav a.active::after {
+  content:''; position:absolute; bottom:6px; left:50%;
+  transform:translateX(-50%) scaleX(1);
+  width:22px; height:3px; border-radius:2px;
+  background:var(--bs-primary);
+  animation:df-nav-dot .25s ease;
+}
+#bottom-nav a:not(.nav-milk):not(.nav-sell):active { transform:scale(.88); }
+#bottom-nav a.active:not(.nav-milk) i { animation:df-bounce-in .35s ease; }
+#bottom-nav a.nav-milk i {
+  background:linear-gradient(135deg,#1565c0,#1976d2,#1e88e5);
+  width:52px; height:52px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin-top:-22px; font-size:1.45rem;
+  box-shadow:0 4px 20px rgba(21,101,192,.6);
+  animation:df-pulse-ring 3s ease-in-out infinite;
+  transition:transform .2s;
+}
+#bottom-nav a.nav-milk:active i { transform:scale(.88); }
+
+/* ================================================================
+   SIDEBAR
+   ================================================================ */
+.nav-menu .nav-link { transition:background .18s,border-color .18s,color .18s; }
+.nav-menu .nav-link i { transition:transform .2s; }
+.nav-menu .nav-link:hover i { transform:translateX(3px); }
+.nav-menu .nav-link.active { font-weight:600; }
+
+/* ================================================================
+   APP TOPBAR
+   ================================================================ */
+.app-topbar { box-shadow:0 2px 12px rgba(0,0,0,.05); }
+[data-bs-theme="dark"] .app-topbar { box-shadow:0 2px 12px rgba(0,0,0,.25); }
+
+/* ================================================================
+   CHIPS
+   ================================================================ */
+.chip { transition:background .18s,color .18s,border-color .18s,transform .12s; }
+.chip:active { transform:scale(.94); }
+.chip.active { animation:df-scale-in .18s ease; box-shadow:0 2px 10px rgba(46,125,50,.3); }
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+.btn { transition:transform .15s, box-shadow .15s; }
+.btn:active { transform:scale(.97); }
+.btn-success {
+  background:linear-gradient(135deg,#2e7d32 0%,#43a047 100%);
+  border:none; box-shadow:0 2px 10px rgba(46,125,50,.32);
+}
+.btn-success:hover {
+  background:linear-gradient(135deg,#1b5e20 0%,#2e7d32 100%);
+  transform:translateY(-1px);
+  box-shadow:0 6px 20px rgba(46,125,50,.42) !important;
+}
+.btn-success:active { transform:translateY(0); }
+
+/* ================================================================
+   ALERTS
+   ================================================================ */
+.alert { border-radius:14px !important; border:none !important; }
+.alert-success { background:linear-gradient(135deg,#e8f5e9,#c8e6c9); color:#1b5e20; }
+.alert-warning { background:linear-gradient(135deg,#fff8e1,#ffe082); color:#e65100; }
+.alert-danger  { background:linear-gradient(135deg,#ffebee,#ffcdd2); color:#b71c1c; }
+.alert-info    { background:linear-gradient(135deg,#e3f2fd,#bbdefb); color:#0d47a1; }
+[data-bs-theme="dark"] .alert-success { background:rgba(46,125,50,.2);  color:#81c784; border:1px solid rgba(46,125,50,.3) !important; }
+[data-bs-theme="dark"] .alert-warning { background:rgba(230,81,0,.2);   color:#ffcc80; border:1px solid rgba(230,81,0,.3) !important; }
+[data-bs-theme="dark"] .alert-danger  { background:rgba(183,28,28,.2);  color:#ef9a9a; border:1px solid rgba(183,28,28,.3) !important; }
+[data-bs-theme="dark"] .alert-info    { background:rgba(13,71,161,.2);  color:#90caf9; border:1px solid rgba(13,71,161,.3) !important; }
+
+/* ================================================================
+   SALE TYPE BADGES & TOGGLES
+   ================================================================ */
+.sale-type-badge-company { background:#e3f2fd; color:#1565c0; border:1px solid #90caf9; font-weight:600; border-radius:6px; }
+.sale-type-badge-local   { background:#e8f5e9; color:#2e7d32; border:1px solid #a5d6a7; font-weight:600; border-radius:6px; }
+.badge-sale-company { background:#e3f2fd !important; color:#1565c0 !important; }
+.badge-sale-local   { background:#e8f5e9 !important; color:#2e7d32 !important; }
+.sale-type-btn { transition:background .15s, border-color .15s, transform .15s; }
+.sale-type-btn:active { transform:scale(.97); }
